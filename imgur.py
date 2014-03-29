@@ -1,9 +1,4 @@
 # -*- coding: utf8 -*-
-"""
-imgur_scraper.py - An imgur album scraper
-Copyright © 2014, iceTwy, <icetwy@icetwy.re>
-Licensed under the WTFPL2.
-"""
 
 import json
 import requests
