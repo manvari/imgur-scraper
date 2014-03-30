@@ -8,22 +8,22 @@ Checks if the inputted URL is a valid imgur album URL.
 Returns a string of the form: 'album/id' or 'gallery/id'.
 """
 def prepare_url(client_id, url):
-        url_regex = re.compile('^(?:https?://)?(?:i\.)?imgur\.com/(.*[^\/])')
-        regex_match = re.match(url_regex, url)
+    url_regex = re.compile('^(?:https?://)?(?:i\.)?imgur\.com/(.*[^\/])')
+    regex_match = re.match(url_regex, url)
 
-        if regex_match == None:
-            raise ValueError('Enter a valid imgur URL.')
+    if regex_match == None:
+        raise ValueError('Enter a valid imgur URL.')
 
-        imgur_resource = regex_match.group(1)
-        if 'gallery' not in imgur_resource and 'a' not in imgur_resource and 'album' not in imgur_resource:
-            raise ValueError('Enter the valid URL of an imgur album or gallery album.')
+    imgur_resource = regex_match.group(1)
+    if 'gallery' not in imgur_resource and 'a' not in imgur_resource and 'album' not in imgur_resource:
+        raise ValueError('Enter the valid URL of an imgur album or gallery album.')
 
-        client = ImgurScraper(client_id)
-        request = client.request(imgur_resource)
-        if 'gallery' in imgur_resource and request['data']['is_album'] != True:
-            raise ValueError('This gallery resource is not an album.')
+    client = ImgurScraper(client_id)
+    request = client.request(imgur_resource)
+    if 'gallery' in imgur_resource and request['data']['is_album'] != True:
+        raise ValueError('This gallery resource is not an album.')
 
-        return imgur_resource
+    return imgur_resource
 
 """
 Gets an album ID from the imgur API.
