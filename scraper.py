@@ -62,7 +62,7 @@ Scrapes images from an imgur album.
 Verbose: indicates the album ID, the number of images in
 the album, and the current download progress.
 """
-def scrape(client_id, album_id, resource, verbose=False):
+def scrape(client_id, album_id, album_dir, resource, verbose=False):
     client = ImgurScraper(client_id)
     request = client.request(resource)
 
@@ -75,7 +75,7 @@ def scrape(client_id, album_id, resource, verbose=False):
         image_url = request['data']['images'][i]['link']
         request_regex = re.match(image_regex, image_url)
         image_id = request_regex.group(1)
-        path = '{0}/{1}/{2}'.format(args.path, album_id, image_id)
+        path = '{0}/{1}'.format(album_dir, image_id)
         if os.path.exists(path):
             if verbose:
                 print('{0}/{1} already downloaded'.format(i+1, images_count))
@@ -100,4 +100,5 @@ if __name__ == "__main__":
 
     imgur_resource = prepare_url(args.client_id, args.url)
     album_id = get_album_id(args.client_id, imgur_resource)
-    scrape(args.client_id, album_id, imgur_resource, args.verbose)
+    album_dir = mkdir_album(args.path, album_id)
+    scrape(args.client_id, album_id, album_dir, imgur_resource, args.verbose)

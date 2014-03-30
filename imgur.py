@@ -37,7 +37,7 @@ class ImgurScraper(object):
         Downloads an image from imgur.
         """
         request = requests.get(link, stream=True)
-        requests.raise_for_status()
+        request.raise_for_status()
         with open(path, 'wb') as out_file:
             return shutil.copyfileobj(request.raw, out_file)
 
