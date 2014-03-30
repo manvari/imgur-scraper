@@ -6,7 +6,7 @@ with open('README.rst') as file:
 setup(
     name = 'imgur-scraper',
     packages = ['imgurscraper'],
-    scripts = ['imgur-scrape'],
+    scripts = ['bin/imgur-scrape'],
     install_requires = ['requests'],
     version = '0.1',
     description = 'An imgur album scraper',
