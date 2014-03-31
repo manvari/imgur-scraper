@@ -17,7 +17,7 @@ You need to register an account at imgur_, then to generate an `API client ID`_.
 Installation
 ============
 
-Simply use `pip` to install imgur-scraper:
+Simply use `pip` to install imgur-scraper::
 
         $ pip install imgur-scraper
 
@@ -26,7 +26,7 @@ imgur-scraper provides `imgur-scrape`.
 Usage
 =====
 
-imgur-scrape can be used with the following arguments:
+imgur-scrape can be used with the following arguments::
 
         usage: imgur-scrape [-h] [-v] client_id url path
 
