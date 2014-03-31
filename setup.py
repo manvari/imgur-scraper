@@ -8,7 +8,7 @@ setup(
     packages = ['imgurscraper'],
     scripts = ['bin/imgur-scrape'],
     install_requires = ['requests'],
-    version = '0.1.1',
+    version = '0.1.2',
     description = 'An imgur album scraper',
     long_description = README,
     author = 'iceTwy',
