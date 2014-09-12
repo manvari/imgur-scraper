@@ -3,11 +3,11 @@ import argparse
 import os
 from imgurscraper.imgur import ImgurScraper
 
-"""
-Checks if the inputted URL is a valid imgur album URL.
-Returns a string of the form: 'album/id' or 'gallery/id'.
-"""
 def prepare_url(client_id, url):
+    """
+    Checks if the inputted URL is a valid imgur album URL.
+    Returns a string of the form: 'album/id' or 'gallery/id'.
+    """
     url_regex = re.compile('^(?:https?://)?(?:i\.)?imgur\.com/(.*[^\/])')
     regex_match = re.match(url_regex, url)
 
@@ -25,44 +25,41 @@ def prepare_url(client_id, url):
 
     return imgur_resource
 
-"""
-Gets an album ID from the imgur API.
-"""
 def get_album_id(client_id, imgur_resource):
+    """
+    Gets an album ID from the imgur API.
+    """
     client = ImgurScraper(client_id)
     request = client.request(imgur_resource)
 
     album_id = request['data']['id']
     return album_id
 
-"""
-Creates a sub-directory for an album to store images,
-within a specified path (i.e. path/album_id).
-
-Returns the full path to the directory.
-"""
 def mkdir_album(path, album_id):
+    """
+    Creates a sub-directory for an album to store images,
+    within a specified path (i.e. path/album_id).
+
+    Returns the full path to the directory.
+    """
     if not os.path.exists(os.path.expanduser(path)):
         raise ValueError('Incorrect path.')
     if not path.endswith('/'):
-        path = path + '/'
+        path = {}{}.format(path, '/')
 
-    album_dir = path + album_id
+    album_dir = {}{}.format(path, album_id)
     if os.path.exists(album_dir):
         return album_dir
     else:
-        try:
-            os.mkdir(album_dir)
-            return album_dir
-        except:
-            exit(1)
+        os.mkdir(album_dir)
+        return album_dir
 
-"""
-Scrapes images from an imgur album.
-Verbose: indicates the album ID, the number of images in
-the album, and the current download progress.
-"""
 def scrape(client_id, album_id, album_dir, resource, verbose=False):
+    """
+    Scrapes images from an imgur album.
+    Verbose: indicates the album ID, the number of images in
+    the album, and the current download progress.
+    """
     client = ImgurScraper(client_id)
     request = client.request(resource)
 
@@ -79,8 +76,6 @@ def scrape(client_id, album_id, album_dir, resource, verbose=False):
         if os.path.exists(path):
             if verbose:
                 print('{0}/{1} already downloaded'.format(i+1, images_count))
-            else:
-                pass
         else:
             client.save_image(image_url, path)
             if verbose:
